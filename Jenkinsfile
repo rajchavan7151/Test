@@ -1,31 +1,32 @@
 pipeline {
     agent any
     tools {
-        jdk 'jdk11'
+        jdk 'jdk11'  // Make sure this name matches what you configured in Jenkins
     }
     stages {
         stage('Checkout') {
             steps {
+                echo 'Cloning repository...'
                 git branch: 'main', url: 'https://github.com/rajchavan7151/Test.git'
             }
         }
         stage('Compile') {
             steps {
-                echo 'Compiling Java program...'
-                bat 'javac HelloWorld.java'   // use 'sh' if you're on Linux
+                echo 'Compiling Java...'
+                // Use bat for Windows agents, sh for Linux agents.
+                bat 'javac HelloWorld.java'
             }
         }
         stage('Run') {
             steps {
-                echo 'Running the program...'
+                echo 'Running Program...'
                 bat 'java HelloWorld'
             }
         }
     }
     post {
         always {
-            echo 'Pipeline execution completed!'
-            archiveArtifacts artifacts: '*.class', fingerprint: true
+            echo 'Pipeline execution finished'
         }
     }
 }
