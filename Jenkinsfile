@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    tools {
-        jdk 'jdk11'  // Make sure this name matches what you configured in Jenkins
-    }
+
     stages {
         stage('Checkout') {
             steps {
